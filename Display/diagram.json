@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "author": "Lakshitha Kavinda",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-breadboard", "id": "bb1", "top": -166.2, "left": -314, "attrs": {} },
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 76.8, "left": 62.44, "attrs": {} },
+    {
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": -44.86,
+      "left": -57.37,
+      "attrs": { "i2cAddress": "0x3c" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "oled1:GND", "esp:GND.2", "black", [ "v-19.2", "h201.6", "v163.2" ] ],
+    [ "oled1:VCC", "esp:3V3", "red", [ "v-28.8", "h67.35", "v172.8" ] ],
+    [ "oled1:SCL", "esp:22", "green", [ "v-28.8", "h163.5" ] ],
+    [ "oled1:GND", "bb1:29b.g", "", [ "$bb" ] ],
+    [ "oled1:VCC", "bb1:30b.g", "", [ "$bb" ] ],
+    [ "oled1:SCL", "bb1:31b.g", "", [ "$bb" ] ],
+    [ "oled1:SDA", "bb1:32b.g", "", [ "$bb" ] ],
+    [ "oled1:SDA", "esp:21", "green", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

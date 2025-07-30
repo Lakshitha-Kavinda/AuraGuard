@@ -1,7 +1,8 @@
 # AuraGuard
 ### Smart Child Safety Wristband - The invisible link of Love
 
-<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/b24323c2-d889-4abd-b777-399276671fa2" />
+<img width="1024" height="1024" alt="ChatGPT Image Jul 30, 2025, 11_11_29 PM" src="https://github.com/user-attachments/assets/5d74a0cd-1f6b-485d-a1d0-5fbc269bdfe5" />
+
 
 ## Project Overview
 **AuraGuard** _is a wearable safety wristband(system) designed to protect children in crowded or open spaces or indoors by maintaining a secure Bluetooth Low Energy (BLE) proximity link between a parent and child. When the child moves beyond a predefined distance (based on signal strength), the parent’s wristband immediately vibrates to alert them._

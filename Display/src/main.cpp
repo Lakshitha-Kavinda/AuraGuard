@@ -10,6 +10,7 @@
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
+void displayText(float TextSize, int x, int y, String text);
 
 void setup() {
   Serial.begin(115200);
@@ -27,7 +28,7 @@ void setup() {
   //display the AuraGuard
   display.setTextSize(2);
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(32,0);
+  display.setCursor(10,23);
   display.println(F("AuraGuard"));
   display.display();
   delay(2000);
@@ -38,6 +39,19 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  display.clearDisplay();
   delay(2000);
+  displayText(1.5, 10, 23, "Connecting...");
+  delay(2000);
+  display.clearDisplay();
+}
+
+void displayText(float TextSize, int x, int y, String text) {
+
+  display.setTextSize(TextSize);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(x,y);
+  display.println(text);
+  display.display();
 }
 

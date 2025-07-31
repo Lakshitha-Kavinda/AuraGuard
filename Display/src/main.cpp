@@ -8,6 +8,8 @@
 #define OLED_RESET -1
 #define SCREEN_ADDRESS 0x3c
 
+//global variables
+bool isConnected = false;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void displayText(float TextSize, int x, int y, String text);
@@ -26,12 +28,9 @@ void setup() {
   display.clearDisplay();
 
   //display the AuraGuard
-  display.setTextSize(2);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(10,23);
-  display.println(F("AuraGuard"));
-  display.display();
+  displayText(2, 10,23, "AuraGuard");
   delay(2000);
+
 
   display.clearDisplay();
 
@@ -41,9 +40,18 @@ void loop() {
   // put your main code here, to run repeatedly:
   display.clearDisplay();
   delay(2000);
-  displayText(1.5, 10, 23, "Connecting...");
+  displayText(2, 7, 23, "Connecting");
   delay(2000);
-  display.clearDisplay();
+  while (!isConnected) {
+    delay(1000);
+    for (int i =0; i < 3; i++) {
+      displayText(2,50+i*10,35,".");
+      delay(500);
+    }
+    display.fillRect(0, 40, SCREEN_WIDTH, 10, SSD1306_BLACK);
+    display.display();
+    
+  }
 }
 
 void displayText(float TextSize, int x, int y, String text) {
@@ -54,4 +62,6 @@ void displayText(float TextSize, int x, int y, String text) {
   display.println(text);
   display.display();
 }
+
+
 

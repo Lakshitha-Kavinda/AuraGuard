@@ -4,6 +4,7 @@
 #include <adafruit_SSD1306.h>
 #include <string>
 
+
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 #define OLED_RESET -1
@@ -14,7 +15,8 @@
 #define UP_button 13
 #define DOWN_button 14
 
-String menu [3] = {"Set distance", "Disable alerts", "Enable alerts"};
+const int n_of_modes = 3;
+String menu [n_of_modes] = {"Set distance", "Disable alerts", "Enable alerts"};
 
 //global variables
 bool isConnected = 1;
@@ -83,14 +85,14 @@ void displayText(float TextSize, int x, int y, String text) {
 
 
 void go_to_menu() {
-  int j = 0;
+  int current_mode = 0;
 
   display.clearDisplay();
-  displayText(2,10, 23, "MENU");
+  displayText(2,46, 23, "MENU");
   delay(2000);
   display.clearDisplay();
 
-  displayText(2,10, 23, menu[j]);
+  displayText(2,0, 23, menu[current_mode]);
 
   while (true) {
 
@@ -98,23 +100,21 @@ void go_to_menu() {
 
     if (clicked_button == Cancel_button) {
       display.clearDisplay();
-      update_Distance(Measured_distance);
+      // update_Distance(Measured_distance);
       break;
     }
     else if (clicked_button == UP_button) {
       display.clearDisplay();
-      displayText(2,10, 23, menu[(j++) % 3]);
+      displayText(2,0, 23, menu[(current_mode++) % n_of_modes]);
 
     }
     else if (clicked_button == DOWN_button) {
-      if ( j == 0) {
-        j = 2;
-      }
-      else {
-        j--;
+      current_mode--;
+      if ( current_mode < 0) {
+        current_mode = 2;
       }
       display.clearDisplay();
-      displayText(2, 10, 23, menu[j]);
+      displayText(2, 0, 23, menu[current_mode]);
     }
     else if (clicked_button == OK_button) {
       continue;

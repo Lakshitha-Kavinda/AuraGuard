@@ -1,14 +1,8 @@
 #include <Arduino.h>
-#include <Wire.h>
-#include <adafruit_GFX.h>
-#include <adafruit_SSD1306.h>
 #include <string>
-
-
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-#define OLED_RESET -1
-#define SCREEN_ADDRESS 0x3c
+#include "BLE.h"
+#include "Display.h"
+#include <adafruit_SSD1306.h>
 
 #define OK_button 4
 #define Cancel_button 5
@@ -19,16 +13,16 @@ const int n_of_modes = 3;
 String menu [n_of_modes] = {"Set distance", "Disable alerts", "Enable alerts"};
 
 //global variables
-bool isConnected = 1;
 int distance_threshold = 1;
-float Measured_distance = 0.0;
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+
 
 void go_to_menu();
 int wait_for_button_press();
 void update_Distance(float Measured_distance);
 void displayText(float TextSize, int x, int y, String text);
-void connector();
+float calculateDistance(int rssi);
+
 
 void setup() {
   Serial.begin(115200);
@@ -52,6 +46,8 @@ void setup() {
   displayText(2, 10,23, "AuraGuard");
   delay(2000);
 
+  display.clearDisplay();
+
   //connect to BLE device
   connector();
 
@@ -65,24 +61,17 @@ void loop() {
 
   // put your main code here, to run repeatedly:
    //function for distance update
+   int rssi = pClient->getRssi();
+   Measured_distance = calculateDistance(rssi);
    update_Distance(Measured_distance);
+   delay(2000);
 
-  if (digitalRead(OK_button) == LOW) {
-    delay(200);
-    go_to_menu();
+  // if (digitalRead(OK_button) == LOW) {
+  //   delay(200);
+  //   go_to_menu();
     
-  }
+  // }
 }
-
-void displayText(float TextSize, int x, int y, String text) {
-
-  display.setTextSize(TextSize);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(x,y);
-  display.println(text);
-  display.display();
-}
-
 
 void go_to_menu() {
   int current_mode = 0;
@@ -152,23 +141,9 @@ void update_Distance (float Measured_distance) {
 
 }
 
-void connector () {
+float calculateDistance(int rssi) {
+  int measuredPower = -59; //Calibrated RSSI at 1 m.
+  float n = 2.0; // Environment factor
+  return pow(10.0, (measuredPower - rssi) /(10 * n));
 
-  while(!isConnected) {
-  displayText(2, 7, 23, "Connecting");
-  delay(2000);
-  while (!isConnected) {
-    delay(1000);
-    for (int i =0; i < 3; i++) {
-      displayText(2,50+i*10,35,".");
-      delay(500);
-    }
-    display.fillRect(0, 40, SCREEN_WIDTH, 10, SSD1306_BLACK);
-    display.display();
-
-  }
-}
-  display.clearDisplay();
-  displayText(2, 10, 23, "Connected");
-  delay(2000);
 }

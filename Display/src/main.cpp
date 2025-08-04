@@ -5,7 +5,7 @@
 #include <adafruit_SSD1306.h>
 #include "Menu.h"
 
-
+#define Vibration_motor 19
 //global variables
 
 
@@ -25,6 +25,8 @@ void setup() {
   pinMode(Cancel_button,INPUT);
   pinMode(UP_button,INPUT);
   pinMode(DOWN_button,INPUT);
+  pinMode(Vibration_motor,OUTPUT);
+  digitalWrite(Vibration_motor,LOW);
 
   //turn on OLED display
   display.display();
@@ -40,7 +42,7 @@ void setup() {
   display.clearDisplay();
 
   //connect to BLE device
-  // connector();
+  connector();
 
   display.clearDisplay();
   delay(1000);
@@ -52,10 +54,19 @@ void loop() {
 
   // put your main code here, to run repeatedly:
    //function for distance update
-  //  int rssi = pClient->getRssi();
-  //  Measured_distance = calculateDistance(rssi);
+   int rssi = pClient->getRssi();
+   Measured_distance = calculateDistance(rssi);
    update_Distance(Measured_distance);
-   delay(2000);
+   
+   if( Measured_distance > distance_threshold) {
+    digitalWrite(Vibration_motor,HIGH);
+    delay(2000);
+   }
+   else if (Measured_distance < distance_threshold) {
+    digitalWrite(Vibration_motor,LOW);
+    delay(2000);
+   }
+   
 
   if (digitalRead(OK_button) == LOW) {
     delay(200);

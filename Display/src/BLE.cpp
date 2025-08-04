@@ -20,12 +20,12 @@ void connector () {
 
   while(!is_Connected) {
   displayText(2, 7, 23, "Connecting");
-  delay(1000);
+  delay(500);
   while (!is_Connected) {
     Serial.println("Conncting to child device");
     for (int i =0; i < 3; i++) {
       displayText(2,50+i*10,35,".");
-      delay(500);
+      delay(100);
     }
 
     if (pClient->connect(child_device)) {

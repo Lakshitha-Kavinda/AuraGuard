@@ -18,7 +18,7 @@ void go_to_menu() {
   displayText(2,0, 23, menu[current_mode]);
 
   while (true) {
-
+    delay(500);
     int clicked_button = wait_for_button_press();
 
     if (clicked_button == Cancel_button) {

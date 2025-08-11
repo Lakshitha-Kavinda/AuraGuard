@@ -4,8 +4,9 @@
 #include "Display.h"
 #include <adafruit_SSD1306.h>
 #include "Menu.h"
+#include "main.h"
 
-#define Vibration_motor 19
+
 //global variables
 
 
@@ -51,7 +52,7 @@ void setup() {
 }
 
 void loop() {
-
+  reconnector();
   // put your main code here, to run repeatedly:
    //function for distance update
    int rssi = pClient->getRssi();

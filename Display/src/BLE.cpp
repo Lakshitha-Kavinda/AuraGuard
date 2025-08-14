@@ -4,8 +4,8 @@
 #include "Display.h"
 #include <BLEDevice.h>
 
-// BLEAddress child_device("3C:8A:1F:80:4E:DE");
-BLEAddress child_device("F4:65:0B:4A:7E:4A");
+BLEAddress child_device("3C:8A:1F:80:4E:DE");
+// BLEAddress child_device("F4:65:0B:4A:7E:4A");
 BLEClient* pClient;
 
 bool is_Connected ;

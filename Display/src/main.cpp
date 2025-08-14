@@ -5,6 +5,7 @@
 #include <adafruit_SSD1306.h>
 #include "Menu.h"
 #include "main.h"
+#include "kalman filter.h"
 
 
 //global variables
@@ -14,6 +15,8 @@ void update_Distance(float Measured_distance);
 void displayText(float TextSize, int x, int y, String text);
 float calculateDistance(int rssi);
 
+
+KalmanFilter kalman(0.0, 2.0, 4.0); 
 
 void setup() {
   Serial.begin(115200);
@@ -79,7 +82,10 @@ void loop() {
 
 void update_Distance (float Measured_distance) {
   display.clearDisplay();
-  displayText(2, 50, 23, String(Measured_distance,1) +" m");
+  float filteredDistance = kalman.update(Measured_distance);
+  // displayText(2, 50, 23, String(Measured_distance,1) +" m");
+  displayText(2, 50, 23, String(filteredDistance,1) +" m");
+
 
 }
 

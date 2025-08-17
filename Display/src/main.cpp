@@ -13,6 +13,10 @@
 
 //global variables
 // SimpleKalmanFilter kalman(0.0, 2.0, 4.0);
+int screen_timeout = 15000;
+int last_update = 0;
+unsigned long current_millis = 0;
+bool screen_on = true;
 
 void update_Distance(float Measured_distance);
 void displayText(float TextSize, int x, int y, String text);
@@ -67,6 +71,7 @@ void setup() {
 
   display.clearDisplay();
   delay(1000);
+  last_update = millis();
 
 
 }
@@ -74,19 +79,30 @@ void setup() {
 void loop() {
 
   if (!pClient->isConnected()) {
-    display.clearDisplay();
+
     digitalWrite(Vibration_motor,LOW);
+    if (!screen_on) {
+      wakeDisplay(&display);
+      display.clearDisplay();
+      display.display();
+      last_update = millis();
+      screen_on = true;
+    }
+    display.clearDisplay();
+
     is_Connected = false;
     connector();
+    last_update = millis();
   }
 
-    // if (!pClient->isConnected()) {
-    //   Serial.println("Lost connection, restarting tasks...");
-    //   is_Connected = false;
-    //   startConnectionTasks();  // restart connection phase
-    // }
+  current_millis = millis();
 
-
+  //checking for screen timeout condition
+  if ((current_millis-last_update) > screen_timeout && screen_on) {
+    display.clearDisplay();
+    screen_on = false;
+    sleepDisplay(&display);
+  }
 
    //function for distance update
    int rssi = pClient->getRssi();
@@ -107,7 +123,16 @@ delay(2000);
     delay(200);
     digitalWrite(Vibration_motor,LOW);
     go_to_menu();
-    
+    last_update = millis();
+    delay(200);
+  }
+  else if (digitalRead(Cancel_button) == LOW) {
+    delay(200);
+    wakeDisplay(&display);
+    screen_on = true;
+    display.clearDisplay();
+    display.display();
+    last_update = millis();
   }
 
 }

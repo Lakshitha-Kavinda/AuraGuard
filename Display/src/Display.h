@@ -11,6 +11,11 @@ extern Adafruit_SSD1306 display;
 
 
 void displayText(float TextSize, int x, int y, String text);
+// Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+void sleepDisplay(Adafruit_SSD1306* display);
+
+void wakeDisplay(Adafruit_SSD1306* display);
 
 #endif
 

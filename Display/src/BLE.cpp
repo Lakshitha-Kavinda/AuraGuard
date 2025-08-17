@@ -52,6 +52,10 @@ void connector () {
     delay(2000);
     display.clearDisplay();
 
+    delay(6000);
+    
+    sleepDisplay(&display);
+
     // EXT0 wake-up on OK button, wake on LOW
     esp_sleep_enable_ext0_wakeup((gpio_num_t)OK_button, 0);
     esp_deep_sleep_start(); // Enter deep sleep

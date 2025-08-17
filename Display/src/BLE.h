@@ -9,6 +9,5 @@ extern BLEClient* pClient;
 
 
 void connector ();
-void reconnector();
 
 #endif

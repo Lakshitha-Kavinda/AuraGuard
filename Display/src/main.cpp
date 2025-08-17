@@ -5,18 +5,21 @@
 #include <adafruit_SSD1306.h>
 #include "Menu.h"
 #include "main.h"
-#include "kalman filter.h"
+// #include "kalman filter.h"
+// #include <SimpleKalmanFilter.h>
+// #include <freeRTOS.h>
+
 
 
 //global variables
-
+// SimpleKalmanFilter kalman(0.0, 2.0, 4.0);
 
 void update_Distance(float Measured_distance);
 void displayText(float TextSize, int x, int y, String text);
 float calculateDistance(int rssi);
 
 
-KalmanFilter kalman(0.0, 2.0, 4.0); 
+//  KalmanFilter kalman(0.0, 2.0, 4.0); 
 
 void setup() {
   Serial.begin(115200);
@@ -45,8 +48,14 @@ void setup() {
 
   display.clearDisplay();
 
+  
+  BLEDevice::init("");
+  pClient = BLEDevice::createClient();
+  Serial.println("Created a BLE client");
+
   //connect to BLE device
   connector();
+
 
   display.clearDisplay();
   delay(1000);
@@ -55,8 +64,22 @@ void setup() {
 }
 
 void loop() {
-  reconnector();
-  // put your main code here, to run repeatedly:
+
+  if (!pClient->isConnected()) {
+    display.clearDisplay();
+    digitalWrite(Vibration_motor,LOW);
+    is_Connected = false;
+    connector();
+  }
+
+    // if (!pClient->isConnected()) {
+    //   Serial.println("Lost connection, restarting tasks...");
+    //   is_Connected = false;
+    //   startConnectionTasks();  // restart connection phase
+    // }
+
+
+
    //function for distance update
    int rssi = pClient->getRssi();
    Measured_distance = calculateDistance(rssi);
@@ -77,14 +100,15 @@ void loop() {
     go_to_menu();
     
   }
+
 }
 
 
 void update_Distance (float Measured_distance) {
   display.clearDisplay();
-  float filteredDistance = kalman.update(Measured_distance);
-  // displayText(2, 50, 23, String(Measured_distance,1) +" m");
-  displayText(2, 50, 23, String(filteredDistance,1) +" m");
+  // float filteredDistance = kalman.update(Measured_distance);
+  displayText(2, 50, 23, String(Measured_distance,1) +" m");
+  // displayText(2, 50, 23, String(filteredDistance,1) +" m");
 
 
 }

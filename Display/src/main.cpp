@@ -93,18 +93,19 @@ void loop() {
    Measured_distance = calculateDistance(rssi);
    update_Distance(Measured_distance);
    
-   if( Measured_distance > distance_threshold) {
+   if( Measured_distance > distance_threshold && alerts_enabled) {
     digitalWrite(Vibration_motor,HIGH);
-    delay(2000);
+
    }
    else if (Measured_distance < distance_threshold) {
     digitalWrite(Vibration_motor,LOW);
-    delay(2000);
    }
    
+delay(2000);
 
   if (digitalRead(OK_button) == LOW) {
     delay(200);
+    digitalWrite(Vibration_motor,LOW);
     go_to_menu();
     
   }

@@ -7,6 +7,7 @@
 #define DOWN_button 14
 
 extern int distance_threshold;
+extern bool alerts_enabled;
 
 void go_to_menu();
 int wait_for_button_press();

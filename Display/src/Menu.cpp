@@ -2,6 +2,7 @@
 #include "Menu.h"
 #include "Display.h"
 
+bool alerts_enabled = true;
 const int n_of_modes = 3;
 String menu [n_of_modes] = {"Set distance", "Disable alerts", "Enable alerts"};
 int distance_threshold = 1;
@@ -43,6 +44,23 @@ void go_to_menu() {
     else if (clicked_button == OK_button) {
       if (current_mode == 0) {
         setDistance();
+      }
+      else if (current_mode == 1) {
+        display.clearDisplay();
+        alerts_enabled = false;
+        displayText(2, 27, 23, "Disabled");
+        delay(1000);
+        display.clearDisplay();
+        displayText(2,0, 23, menu[current_mode]);
+      }
+      else if (current_mode == 2) {
+        display.clearDisplay();
+        alerts_enabled = true;
+        displayText(2, 27, 23, "Enabled");
+        delay(1000);
+        display.clearDisplay();
+        displayText(2,0, 23, menu[current_mode]);
+
       }
     }
 

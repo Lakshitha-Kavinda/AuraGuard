@@ -28,10 +28,10 @@ void setup() {
     for(;;);
   }
 
-  pinMode(OK_button, INPUT);
-  pinMode(Cancel_button,INPUT);
-  pinMode(UP_button,INPUT);
-  pinMode(DOWN_button,INPUT);
+  pinMode(OK_button, INPUT_PULLUP);
+  pinMode(Cancel_button,INPUT_PULLUP);
+  pinMode(UP_button,INPUT_PULLUP);
+  pinMode(DOWN_button,INPUT_PULLUP);
   pinMode(Vibration_motor,OUTPUT);
   digitalWrite(Vibration_motor,LOW);
 
@@ -54,6 +54,14 @@ void setup() {
   Serial.println("Created a BLE client");
 
   //connect to BLE device
+
+    // Check wake-up reason
+  esp_sleep_wakeup_cause_t reason = esp_sleep_get_wakeup_cause();
+  if (reason == ESP_SLEEP_WAKEUP_EXT0) {
+    Serial.println("Woke up from OK button press, retrying BLE connection...");
+  }
+
+  max_attempts = 2;
   connector();
 
 

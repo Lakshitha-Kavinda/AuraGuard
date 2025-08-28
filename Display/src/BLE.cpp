@@ -11,7 +11,7 @@ BLEClient* pClient;
 
 bool is_Connected = false ;
 float Measured_distance;
-int max_attempts;
+int max_attempts = 5;
 
 void connector () {
 

@@ -5,6 +5,10 @@
 #define TAG_TX 17
 
 extern HardwareSerial TagUWB;
+extern int anchorID;
+extern int received_ID;
+extern bool validID;
+extern bool connected;
 
 float getDistance();
 int getID();

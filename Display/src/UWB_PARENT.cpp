@@ -19,7 +19,7 @@ bool connected = false;
 
 void initialize () {
   TagUWB.begin(115200, SERIAL_8N1, TAG_RX, TAG_TX);
-  if(!tagConnected && !ranging) {
+  if((!tagConnected && !ranging) || !connected) {
   displayText(2, 7, 23, "Connecting");
   delay(200);
   while (max_attempts > 0) {

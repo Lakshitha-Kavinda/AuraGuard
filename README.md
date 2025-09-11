@@ -34,3 +34,12 @@
 | 11–12 | Documentatig and demo preparation                                                                                      |
 
 #### Version 1
+
+![IMG-20250911-WA0011](https://github.com/user-attachments/assets/ddc0eaf6-9653-45a6-9e58-a90505d7f58c)
+
+
+#### Version 2
+
+![WhatsApp Image 2025-09-11 at 13 28 04_df5b8549](https://github.com/user-attachments/assets/4f7a53cc-87c4-4a84-907f-26ea92704072)
+
+

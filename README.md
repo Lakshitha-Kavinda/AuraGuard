@@ -35,7 +35,8 @@
 
 ### Version 1 - BLE RSSI based Wristband implementation
 
-![IMG-20250911-WA0011](https://github.com/user-attachments/assets/ddc0eaf6-9653-45a6-9e58-a90505d7f58c)
+
+<img width="512" height="512" alt="ChatGPT Image Jul 30, 2025, 11_11_29 PM" src="https://github.com/user-attachments/assets/ddc0eaf6-9653-45a6-9e58-a90505d7f58c" />
 
 
 ### Version 2 - UWB based Wristband implementation

@@ -1,7 +1,7 @@
 # AuraGuard
 ### Smart Child Safety Wristband - The invisible link of Love
 
-<img width="1024" height="1024" alt="ChatGPT Image Jul 30, 2025, 11_11_29 PM" src="https://github.com/user-attachments/assets/5d74a0cd-1f6b-485d-a1d0-5fbc269bdfe5" />
+<img width="512" height="512" alt="ChatGPT Image Jul 30, 2025, 11_11_29 PM" src="https://github.com/user-attachments/assets/5d74a0cd-1f6b-485d-a1d0-5fbc269bdfe5" />
 
 
 ## Project Overview

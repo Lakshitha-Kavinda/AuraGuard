@@ -31,7 +31,7 @@
 | 5–6   |Implement version 1 using BLE rssi.(Implement range detection + vibration trigger  + Improve the noise immunity of the system)   |
 | 7–8   |Implement version 2 using UWB technology                                                                                                  |
 | 9–10  | Testing and calibration in real-world scenarios and documentation of the finding.                                                          |
-| 11–12 | Documentatig and demo preparation                                                                                      |
+| 11– 12  | Documentatig and demo preparation                                                                                      |
 
 ### Version 1 - BLE RSSI based Wristband implementation
 

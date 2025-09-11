@@ -20,16 +20,15 @@
 | OLED display                          | 1 | For parent device |
 |  100 ohm resistors | 4 | |
 |Swithces | 2 | |
-| Enclosure/Band                                   | 2        | Wristband or case for both units                |
 
 ### Project timeline
 
 | Week  | Task                                                                                                                                |
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------|
 | 1–2   | Research BLE + RSSI behavior + Filtering techniques, finalize components, Requirement specification                                 |
-| 3–4   | Ordering or buying components and Build BLE communication between devices and UWB development boards                                                           |
-| 5–6   |Implement version 1 using BLE rssi.(Implement range detection + vibration trigger  + Improve the noise immunity of the system)   |
-| 7–8   |Implement version 2 using UWB technology                                                                                                  |
+| 3–4   | Ordering or buying components (UWB modules etc) and Build BLE communication between devices.                                                         |
+| 5–6   |Implement version 1 using BLE rssi.(Implement range detection + vibration trigger  + Improve the noise immunity of the system) and order   |
+| 7–8   |Implement version 2 using UWB technology.                                                                                                  |
 | 9–10  | Testing and calibration in real-world scenarios and documentation of the finding.                                                          |
 | 11– 12  | Documentatig and demo preparation                                                                                      |
 

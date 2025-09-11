@@ -11,12 +11,15 @@
 
 | Component                                        | Quantity | Notes                                           |
 | ------------------------------------------------ | -------- | ----------------------------------------------- |
-| ESP32 Dev Module / ESP32 with integrated display | 2        | One for parent, one for child                   |
+| ESP32 Dev Module  | 1        | For parenet device                 |
+|  DW1000 NodeMCU-BU01 Development Board | 2 | 
 | 3.7V Li-ion or Li-Po battery                     | 2        | For powering the ESP32                          |
 | TP4056 Charging Module                           | 2        | USB charging circuit for battery                |
 | Vibration Motor Module                           | 1        | On the parent band to alert                     |
 | Buttons                                          | 4        | Powering  ON/OFF, UP, DOWN, OK                  |
-| LED or OLED (optional)                           | Optional | If the ESP32 doesn't have a integrated display. |
+| OLED display                          | 1 | For parent device |
+|  100 ohm resistors | 4 | |
+|Swithces | 2 | |
 | Enclosure/Band                                   | 2        | Wristband or case for both units                |
 
 ### Project timeline

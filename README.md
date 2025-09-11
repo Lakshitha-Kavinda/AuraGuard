@@ -43,10 +43,10 @@
 
 #### Parent's wristband
 
-![WhatsApp Image 2025-09-11 at 13 28 04_df5b8549](https://github.com/user-attachments/assets/4f7a53cc-87c4-4a84-907f-26ea92704072)
+<img width="512" height="512" alt="ChatGPT Image Jul 30, 2025, 11_11_29 PM" src="https://github.com/user-attachments/assets/4f7a53cc-87c4-4a84-907f-26ea92704072" />
 
 #### Child's wrist band
 
-![WhatsApp Image 2025-09-11 at 13 40 55_cc82fbab](https://github.com/user-attachments/assets/21339f17-ae87-4d12-b4f4-8965e27080f9)
+<img width="512" height="512" alt="ChatGPT Image Jul 30, 2025, 11_11_29 PM" src="https://github.com/user-attachments/assets/21339f17-ae87-4d12-b4f4-8965e27080f9" />
 
 

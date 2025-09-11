@@ -32,3 +32,5 @@
 | 7–8   |Implement version 2 using UWB technology                                                                                                  |
 | 9–10  | Testing and calibration in real-world scenarios and documentation of the finding.                                                          |
 | 11–12 | Documentatig and demo preparation                                                                                      |
+
+#### Version 1

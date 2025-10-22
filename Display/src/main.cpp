@@ -10,7 +10,6 @@
 
 
 //global variables
-int screen_timeout = 15000;
 int last_update = 0;
 unsigned long current_millis = 0;
 unsigned long connection_timeout = 15000;
@@ -59,7 +58,7 @@ void setup() {
     Serial.println("Woke up from OK button press");
   }
 
-  max_attempts = 2;
+  max_attempts = 5;
   initialize();
 
 
@@ -73,6 +72,8 @@ void setup() {
 void loop() {
 
   if (!anchorID == received_ID || (millis() -last_received_time) > connection_timeout) {
+  // if (!anchorID == received_ID) {
+
 
     digitalWrite(Vibration_motor,LOW);
     if (!screen_on) {
@@ -97,8 +98,8 @@ void loop() {
 
   current_millis = millis();
 
-  //checking for screen timeout condition
-  if ((current_millis-last_update) > screen_timeout && screen_on) {
+  // checking for screen timeout condition
+  if ((current_millis-last_update) > screen_timeout && screen_on && timeout_on) {
     display.clearDisplay();
     screen_on = false;
     sleepDisplay(&display);

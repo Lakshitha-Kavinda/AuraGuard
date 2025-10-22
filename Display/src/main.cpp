@@ -5,17 +5,16 @@
 #include <adafruit_SSD1306.h>
 #include "Menu.h"
 #include "main.h"
-// #include "kalman filter.h"
-// #include <SimpleKalmanFilter.h>
-// #include <freeRTOS.h>
-
+#include <UWB_PARENT.h>
+#include <HardwareSerial.h>
 
 
 //global variables
-// SimpleKalmanFilter kalman(0.0, 2.0, 4.0);
-int screen_timeout = 15000;
 int last_update = 0;
 unsigned long current_millis = 0;
+unsigned long connection_timeout = 15000;
+
+unsigned long last_received_time;
 bool screen_on = true;
 
 void update_Distance(float Measured_distance);
@@ -23,7 +22,6 @@ void displayText(float TextSize, int x, int y, String text);
 float calculateDistance(int rssi);
 
 
-//  KalmanFilter kalman(0.0, 2.0, 4.0); 
 
 void setup() {
   Serial.begin(115200);
@@ -31,7 +29,7 @@ void setup() {
     Serial.println("SSD1306 allocation failed");
     for(;;);
   }
-
+  
   pinMode(OK_button, INPUT_PULLUP);
   pinMode(Cancel_button,INPUT_PULLUP);
   pinMode(UP_button,INPUT_PULLUP);
@@ -52,21 +50,16 @@ void setup() {
 
   display.clearDisplay();
 
-  
-  BLEDevice::init("");
-  pClient = BLEDevice::createClient();
-  Serial.println("Created a BLE client");
 
-  //connect to BLE device
 
     // Check wake-up reason
   esp_sleep_wakeup_cause_t reason = esp_sleep_get_wakeup_cause();
   if (reason == ESP_SLEEP_WAKEUP_EXT0) {
-    Serial.println("Woke up from OK button press, retrying BLE connection...");
+    Serial.println("Woke up from OK button press");
   }
 
-  max_attempts = 2;
-  connector();
+  max_attempts = 5;
+  initialize();
 
 
   display.clearDisplay();
@@ -78,7 +71,9 @@ void setup() {
 
 void loop() {
 
-  if (!pClient->isConnected()) {
+  if (!anchorID == received_ID || (millis() -last_received_time) > connection_timeout) {
+  // if (!anchorID == received_ID) {
+
 
     digitalWrite(Vibration_motor,LOW);
     if (!screen_on) {
@@ -90,25 +85,50 @@ void loop() {
     }
     display.clearDisplay();
 
-    is_Connected = false;
-    connector();
+    connected = false;
+    validID = false;
+    initialize();
+
+
+
+  //   is_Connected = false;
+  //   connector();
     last_update = millis();
   }
 
   current_millis = millis();
 
-  //checking for screen timeout condition
-  if ((current_millis-last_update) > screen_timeout && screen_on) {
+  // checking for screen timeout condition
+  if ((current_millis-last_update) > screen_timeout && screen_on && timeout_on) {
     display.clearDisplay();
     screen_on = false;
     sleepDisplay(&display);
   }
 
    //function for distance update
-   int rssi = pClient->getRssi();
-   Measured_distance = calculateDistance(rssi);
-   update_Distance(Measured_distance);
-   
+  //  int rssi = pClient->getRssi();
+  // Measured_distance = calculateDistance(rssi);
+  //  update_Distance(Measured_distance);
+if (TagUWB.available()) {
+  String line = TagUWB.readStringUntil('\n');
+    line.trim();
+    if (line.length() > 0) {
+      // Serial.println("[Distance] " + line);  // Example: 0:2.45
+      last_received_time = millis();
+      int colon = line.indexOf(':');
+      if (colon > 0) {
+        received_ID = line.substring(0, colon).toInt();
+        Measured_distance = line.substring(colon + 1).toFloat();
+        // Serial.printf("Anchor %d → %.2f m\n", anchorID, Measured_distance);
+        update_Distance(Measured_distance);
+      }
+    }
+  } 
+
+// Measured_distance = getDistance();
+// update_Distance(Measured_distance);
+// Serial.printf("Measured Distance: %.2f m\n", Measured_distance);
+
    if( Measured_distance > distance_threshold && alerts_enabled) {
     digitalWrite(Vibration_motor,HIGH);
 
@@ -117,7 +137,7 @@ void loop() {
     digitalWrite(Vibration_motor,LOW);
    }
    
-delay(2000);
+// delay(1500);
 
   if (digitalRead(OK_button) == LOW) {
     delay(200);
@@ -141,7 +161,7 @@ delay(2000);
 void update_Distance (float Measured_distance) {
   display.clearDisplay();
   // float filteredDistance = kalman.update(Measured_distance);
-  displayText(2, 50, 23, String(Measured_distance,1) +" m");
+  displayText(2, 50, 23, String(Measured_distance,2) +" m");
   // displayText(2, 50, 23, String(filteredDistance,1) +" m");
 
 
